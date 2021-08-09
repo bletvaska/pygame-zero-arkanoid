@@ -14,7 +14,7 @@ ball.speed = 5
 paddle = Actor('paddle')
 paddle.bottom = HEIGHT
 paddle.x = WIDTH / 2
-paddle.speed = 2
+paddle.speed = 7
 
 
 def update():
@@ -37,12 +37,22 @@ def update():
     if ball.left <= 0:
         ball.dx *= -1
 
+    # left arrow pressed
     if keyboard.left == True:
-        print('<--')
         paddle.x = paddle.x - paddle.speed
+        if paddle.left <= 0:
+            paddle.left = 0
 
     if keyboard.right == True:
-        print('-->')
+        paddle.x += paddle.speed
+        if paddle.right >= WIDTH:
+            paddle.right = WIDTH
+
+    # collision detection
+    if paddle.colliderect(ball):
+        print('collision detected')
+        ball.dy *= -1
+        ball.bottom = paddle.top
 
 def draw():
     screen.clear()
