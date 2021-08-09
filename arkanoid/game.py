@@ -7,10 +7,18 @@ ball = Actor('ball')
 #ball.x = WIDTH / 2
 #ball.y = HEIGHT / 2
 ball.pos = (WIDTH / 2, HEIGHT / 2)
+ball.dx = 1
+ball.dy = -1
 
 def update():
-    ball.x = ball.x + 1
-    ball.y = ball.y - 1
+    ball.x = ball.x + ball.dx
+    ball.y = ball.y + ball.dy
+
+    if ball.y <= 11:
+        ball.dy *= -1
+
+    if ball.x >= WIDTH - 11:
+        ball.dx *= -1
 
 
 def draw():
