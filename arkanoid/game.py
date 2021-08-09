@@ -14,10 +14,10 @@ def update():
     ball.x = ball.x + ball.dx
     ball.y = ball.y + ball.dy
 
-    if ball.y <= 11:
+    if ball.top <= 0:
         ball.dy *= -1
 
-    if ball.x >= WIDTH - 11:
+    if ball.right >= WIDTH:
         ball.dx *= -1
 
 
