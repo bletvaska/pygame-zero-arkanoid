@@ -24,18 +24,22 @@ def update():
     # odrazenie zhora
     if ball.top <= 0:
         ball.dy *= -1
+        ball.top = 0
 
     # odrazenie zprava
     if ball.right >= WIDTH:
         ball.dx *= -1
+        ball.right = WIDTH
 
     # odrazenie zdola
     if ball.bottom >= HEIGHT:
         ball.dy *= -1
+        ball.bottom = HEIGHT
 
     # odrazenie zlava
     if ball.left <= 0:
         ball.dx *= -1
+        ball.left = 0
 
     # left arrow pressed
     if keyboard.left == True:
