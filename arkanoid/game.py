@@ -3,6 +3,16 @@ WIDTH = 640
 HEIGHT = 480
 TITLE = "arkanoid.py"
 
+class Ball(Actor):
+    def __init__(self):
+        super().__init__('ball')  # Actor('ball')
+        self.dx = 1
+        self.dy = -1
+        self.speed = 5
+        self.pos = (WIDTH / 2, HEIGHT / 2)
+
+ballx = Ball()
+
 ball = Actor("ball")
 # ball.x = WIDTH / 2
 # ball.y = HEIGHT / 2
@@ -85,9 +95,11 @@ def update():
 
 
 def draw():
-    screen.clear()
+    #screen.clear()
+    screen.blit('background', (0, 0))
     ball.draw()
     paddle.draw()
+    ballx.draw()
 
     for brick in bricks:
         brick.draw()
