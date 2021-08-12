@@ -73,6 +73,11 @@ def update():
             bricks.remove(brick)
             break
 
+    # check if there are any bricks left
+    if len(bricks) == 0:
+        print('Well done')
+        quit()
+
 
 def draw():
     screen.clear()
