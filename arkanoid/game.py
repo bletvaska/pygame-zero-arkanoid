@@ -38,12 +38,28 @@ class Ball(Actor):
         #if self.colliderect(xxx):
         #    yyy.remove(xxx)
 
-ball = Ball()
+class Paddle(Actor):
+    def __init__(self):
+        super().__init__('paddle')  # Actor('paddle')
+        self.bottom = HEIGHT
+        self.x = WIDTH / 2
+        self.speed = 7
 
-paddle = Actor("paddle")
-paddle.bottom = HEIGHT
-paddle.x = WIDTH / 2
-paddle.speed = 7
+    def update(self):
+        # left arrow pressed
+        if keyboard.left == True:
+            self.x = self.x - self.speed
+            if self.left <= 0:
+                self.left = 0
+
+        if keyboard.right == True:
+            self.x += self.speed
+            if self.right >= WIDTH:
+                self.right = WIDTH
+
+
+ball = Ball()
+paddle = Paddle()
 
 bricks = []
 for col in range(10):
@@ -56,27 +72,15 @@ for col in range(10):
 
 def update():
     ball.update()
+    paddle.update()
 
     # god mode
-    paddle.x = ball.x
+    #paddle.x = ball.x
 
     # ukoncenie hry, ked lopticka preleti cez dolny okraj obrazovky
     if ball.bottom >= HEIGHT:
         print('Game Over')
         quit()
-        #ball.dy *= -1
-        #ball.bottom = HEIGHT
-
-    # left arrow pressed
-    if keyboard.left == True:
-        paddle.x = paddle.x - paddle.speed
-        if paddle.left <= 0:
-            paddle.left = 0
-
-    if keyboard.right == True:
-        paddle.x += paddle.speed
-        if paddle.right >= WIDTH:
-            paddle.right = WIDTH
 
     # collision detection
     if paddle.colliderect(ball):
