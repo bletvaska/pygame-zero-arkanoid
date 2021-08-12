@@ -71,6 +71,8 @@ def draw():
     ball.draw()
     paddle.draw()
 
+    for brick in bricks:
+        brick.draw()
 
 
 
