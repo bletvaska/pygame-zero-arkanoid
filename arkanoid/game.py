@@ -44,6 +44,9 @@ def update():
         ball.dx *= -1
         ball.left = 0
 
+    # god mode
+    paddle.x = ball.x
+
     # ukoncenie hry, ked lopticka preleti cez dolny okraj obrazovky
     if ball.bottom >= HEIGHT:
         print('Game Over')
