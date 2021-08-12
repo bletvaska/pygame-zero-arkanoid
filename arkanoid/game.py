@@ -39,15 +39,17 @@ def update():
         ball.dx *= -1
         ball.right = WIDTH
 
-    # odrazenie zdola
-    if ball.bottom >= HEIGHT:
-        ball.dy *= -1
-        ball.bottom = HEIGHT
-
     # odrazenie zlava
     if ball.left <= 0:
         ball.dx *= -1
         ball.left = 0
+
+    # ukoncenie hry, ked lopticka preleti cez dolny okraj obrazovky
+    if ball.bottom >= HEIGHT:
+        print('Game Over')
+        quit()
+        #ball.dy *= -1
+        #ball.bottom = HEIGHT
 
     # left arrow pressed
     if keyboard.left == True:
