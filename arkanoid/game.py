@@ -48,7 +48,7 @@ paddle.speed = 7
 bricks = []
 for col in range(10):
     for row in range(5):
-        brick = Actor("brick.red")
+        brick = Brick()
         brick.left = col * brick.width
         brick.top = row * brick.height
         bricks.append(brick)
