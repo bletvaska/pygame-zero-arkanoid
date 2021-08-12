@@ -16,6 +16,14 @@ paddle.bottom = HEIGHT
 paddle.x = WIDTH / 2
 paddle.speed = 7
 
+bricks = []
+for col in range(10):
+    for row in range(5):
+        brick = Actor("brick.red")
+        brick.left = col * brick.width
+        brick.top = row * brick.height
+        bricks.append(brick)
+
 
 def update():
     ball.x = ball.x + ball.speed * ball.dx
@@ -62,4 +70,7 @@ def draw():
     screen.clear()
     ball.draw()
     paddle.draw()
+
+
+
 
