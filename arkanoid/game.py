@@ -6,12 +6,32 @@ TITLE = "arkanoid.py"
 class Ball(Actor):
     def __init__(self):
         super().__init__('ball')  # Actor('ball')
-        self.dx = 1
+        self.dx = -1
         self.dy = -1
         self.speed = 5
         self.pos = (WIDTH / 2, HEIGHT / 2)
 
+    def update(self):
+        self.x = self.x + self.speed * self.dx
+        self.y = self.y + self.speed * self.dy
+
+        # odrazenie zhora
+        if self.top <= 0:
+            self.dy *= -1
+            self.top = 0
+
+        # odrazenie zprava
+        if self.right >= WIDTH:
+            self.dx *= -1
+            self.right = WIDTH
+
+        # odrazenie zlava
+        if self.left <= 0:
+            self.dx *= -1
+            self.left = 0
+
 ballx = Ball()
+
 
 ball = Actor("ball")
 # ball.x = WIDTH / 2
@@ -36,6 +56,8 @@ for col in range(10):
 
 
 def update():
+    ballx.update()
+
     ball.x = ball.x + ball.speed * ball.dx
     ball.y = ball.y + ball.speed * ball.dy
 
