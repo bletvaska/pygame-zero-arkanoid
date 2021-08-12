@@ -35,8 +35,24 @@ class Ball(Actor):
             self.dx *= -1
             self.left = 0
 
-        #if self.colliderect(xxx):
-        #    yyy.remove(xxx)
+        # odrazenie zdola
+        if self.bottom >= HEIGHT:
+            self.dy *= -1
+            self.bottom = HEIGHT
+
+        # collision detection with paddle
+        if self.colliderect(paddle):
+            print("collision detected")
+            self.dy *= -1
+            self.bottom = paddle.top
+
+        # collision detection brick with ball
+        for brick in bricks:
+            if self.colliderect(brick):
+                self.dy *= -1
+                bricks.remove(brick)
+                break
+
 
 class Paddle(Actor):
     def __init__(self):
@@ -81,19 +97,6 @@ def update():
     if ball.bottom >= HEIGHT:
         print('Game Over')
         quit()
-
-    # collision detection
-    if paddle.colliderect(ball):
-        print("collision detected")
-        ball.dy *= -1
-        ball.bottom = paddle.top
-
-    # collision detection brick with ball
-    for brick in bricks:
-        if brick.colliderect(ball):
-            ball.dy *= -1
-            bricks.remove(brick)
-            break
 
     # check if there are any bricks left
     if len(bricks) == 0:
