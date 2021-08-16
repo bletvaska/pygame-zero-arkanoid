@@ -87,9 +87,9 @@ paddle = Paddle()
 
 colors = ("red", "grey", "purple", "blue", "green")
 bricks = []
-for row in range(5):
+for row, color in enumerate(colors):
     for col in range(10):
-        brick = Brick(choice(colors), lives=3)
+        brick = Brick(color, lives=5-row)
         brick.left = col * brick.width
         brick.top = row * brick.height + brick.height  # 32
         bricks.append(brick)
