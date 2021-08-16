@@ -114,8 +114,24 @@ def update():
         quit()
 
 
+background1 = Actor('background')
+background2 = Actor('background')
+background2.left = background1.right
+
 def draw():
-    screen.blit('background', (0, 0))
+    # screen.blit('background', (0, 0))
+    background1.draw()
+    background2.draw()
+
+    background1.x -= 1
+    background2.x -= 1
+
+    if background1.right == 0:
+        background1.left = background2.right
+    elif background2.right == 0:
+        background2.left = background1.right
+
+
     ball.draw()
     paddle.draw()
 
