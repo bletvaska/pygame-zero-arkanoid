@@ -114,8 +114,8 @@ def update():
         quit()
 
 
-background1 = Actor('background')
-background2 = Actor('background')
+background1 = Actor('background2')
+background2 = Actor('background2')
 background2.left = background1.right
 
 def draw():
