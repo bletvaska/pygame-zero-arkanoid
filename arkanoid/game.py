@@ -83,9 +83,9 @@ paddle = Paddle()
 
 
 bricks = []
-for col in range(10):
-    for row in range(5):
-        brick = Brick()
+for row, color in enumerate(('red', 'grey', 'purple', 'blue', 'green')):
+    for col in range(10):
+        brick = Brick(color)
         brick.left = col * brick.width
         brick.top = row * brick.height
         bricks.append(brick)
@@ -96,7 +96,7 @@ def update():
     paddle.update()
 
     # god mode
-    #paddle.x = ball.x
+    paddle.x = ball.x
 
     # ukoncenie hry, ked lopticka preleti cez dolny okraj obrazovky
     if ball.bottom >= HEIGHT:
