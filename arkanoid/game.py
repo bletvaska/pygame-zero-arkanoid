@@ -1,4 +1,6 @@
 #!/usr/bin/env pgzrun
+from random import choice
+
 WIDTH = 640
 HEIGHT = 480
 TITLE = "arkanoid.py"
@@ -82,10 +84,11 @@ ball = Ball()
 paddle = Paddle()
 
 
+colors = ('red', 'grey', 'purple', 'blue', 'green')
 bricks = []
-for row, color in enumerate(('red', 'grey', 'purple', 'blue', 'green')):
+for row in range(5):
     for col in range(10):
-        brick = Brick(color)
+        brick = Brick(choice(colors))
         brick.left = col * brick.width
         brick.top = row * brick.height
         bricks.append(brick)
