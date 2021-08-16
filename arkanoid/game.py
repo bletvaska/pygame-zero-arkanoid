@@ -123,4 +123,4 @@ def draw():
         brick.draw()
 
     # print score
-    screen.draw.text(f'Score: {ball.score}', topright=(WIDTH, 0))
+    screen.draw.text(f'Score: {ball.score:06}', topright=(WIDTH, 0))
