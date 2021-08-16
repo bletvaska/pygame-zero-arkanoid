@@ -92,7 +92,7 @@ for row in range(5):
     for col in range(10):
         brick = Brick(choice(colors))
         brick.left = col * brick.width
-        brick.top = row * brick.height
+        brick.top = row * brick.height + brick.height  # 32
         bricks.append(brick)
 
 
@@ -123,4 +123,4 @@ def draw():
         brick.draw()
 
     # print score
-    screen.draw.text(f'Score: {ball.score:06}', topright=(WIDTH, 0))
+    screen.draw.text(f'Score: {ball.score:06}', topright=(WIDTH - 10, 10))
