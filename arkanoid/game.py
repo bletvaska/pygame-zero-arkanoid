@@ -4,8 +4,12 @@ HEIGHT = 480
 TITLE = "arkanoid.py"
 
 class Brick(Actor):
-    def __init__(self):
-        super().__init__('brick.purple')  # Actor('brick.purple')
+    def __init__(self, color='purple'):
+        super().__init__(f'brick.{color}')  # Actor('brick.purple')
+
+
+def hello():
+    print('hello world')
 
 
 class Ball(Actor):
@@ -76,6 +80,7 @@ class Paddle(Actor):
 
 ball = Ball()
 paddle = Paddle()
+
 
 bricks = []
 for col in range(10):
