@@ -21,6 +21,7 @@ class Ball(Actor):
         self.dy = -1
         self.speed = 5
         self.pos = (WIDTH / 2, HEIGHT / 2)
+        self.score = 0
 
     def update(self):
         self.x = self.x + self.speed * self.dx
@@ -57,6 +58,7 @@ class Ball(Actor):
             if self.colliderect(brick):
                 self.dy *= -1
                 bricks.remove(brick)
+                self.score += 10
                 break
 
 
@@ -119,3 +121,6 @@ def draw():
 
     for brick in bricks:
         brick.draw()
+
+    # print score
+    screen.draw.text(f'Score: {ball.score}', topright=(WIDTH, 0))
