@@ -72,6 +72,8 @@ class Ball(Actor):
             self.dy *= -1
             self.bottom = paddle.top
 
+background1 = Actor("background2")
+background2 = Actor("background2")
 
 class Paddle(Actor):
     def __init__(self):
@@ -113,6 +115,8 @@ def update():
 
     # god mode
     paddle.x = ball.x
+    background1.x += ball.dx
+    background2.x += ball.dx
 
     # ukoncenie hry, ked lopticka preleti cez dolny okraj obrazovky
     if ball.bottom >= HEIGHT:
@@ -129,8 +133,6 @@ def update():
         brick.update()
 
 
-background1 = Actor("background2")
-background2 = Actor("background2")
 background2.left = background1.right
 
 
@@ -139,8 +141,8 @@ def draw():
     background1.draw()
     background2.draw()
 
-    background1.x -= 1
-    background2.x -= 1
+    # background1.x -= 1
+    # background2.x -= 1
 
     if background1.right == 0:
         background1.left = background2.right
