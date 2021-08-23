@@ -1,15 +1,27 @@
 #!/usr/bin/env pgzrun
 from random import choice
+import logging
+
+from pgzero.actor import Actor
+from pgzero.keyboard import keyboard
+import pgzrun
 
 WIDTH = 640
 HEIGHT = 480
 TITLE = "arkanoid.py"
 
+# logger = logging.getLogger('arkanoid')
+
 
 class Brick(Actor):
     def __init__(self, color="purple", lives=1):
-        super().__init__(f"brick.{color}")  # Actor('brick.purple')
-        self.lives = lives
+        try:
+            super().__init__(f"brick.{color}")  # Actor('brick.purple')
+            self.lives = lives
+        except KeyError:
+            # toto sa nikdy nezrube  # NENECHAVAT PRAZDNY except BLOK!!!!!
+            logging.critical(f'File "brick.{color}.png" not found. Please, reinstall game.')
+            quit(1)
 
     def update(self):
         # collision detection brick with ball
@@ -143,3 +155,5 @@ def draw():
 
     # print score
     screen.draw.text(f"Score: {ball.score:06}", topright=(WIDTH - 10, 10))
+
+pgzrun.go()
