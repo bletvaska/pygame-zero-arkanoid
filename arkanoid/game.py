@@ -146,23 +146,38 @@ def draw():
 
 
 def init_game():
-    paddle = Paddle()
-    actors.append(paddle)
-    actors.append(Ball())
+    # paddle = Paddle()
+    # actors.append(paddle)
+    # actors.append(Ball())
 
     level = pytmx.TiledMap('maps/level1.tmx')
     layer = level.get_layer_by_name('actors')
 
-    for actor in layer:
-        brick = Brick(actor.properties['color'], actor.properties['lives'])
-        brick.topleft = (actor.x, actor.y)
-        actors.append(brick)
+    for obj in layer:
+        if obj.type == 'brick':
+            actor = Brick(obj.properties['color'], obj.properties['lives'])
+
+        elif obj.type == 'paddle':
+            actor = Paddle()
+            actor.speed = obj.properties['speed']
+
+        elif obj.type == 'ball':
+            actor = Ball()
+            actor.speed = obj.properties['speed']
+            actor.dx = obj.properties['dx']
+            actor.dy = obj.properties['dy']
+        else:
+            raise TypeError(f'Unknown type "{obj.type}" in actors layer.')
+
+        actor.topleft = (obj.x, obj.y)
+        actors.append(actor)
 
     # extract background image
     bglayer = level.get_layer_by_name('background')
     image = Path(bglayer.image[0])
 
     global background
+    paddle = get_actor_by_type(actors, Paddle)
     background = Actor(image.stem)
     background.x = paddle.x
     print(paddle.left, paddle.top)
