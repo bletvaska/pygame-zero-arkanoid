@@ -5,10 +5,12 @@ import logging
 from pgzero.actor import Actor
 from pgzero.keyboard import keyboard
 import pgzrun
+import pytmx
 
 WIDTH = 640
 HEIGHT = 480
 TITLE = "arkanoid.py"
+
 
 # logger = logging.getLogger('arkanoid')
 
@@ -72,8 +74,6 @@ class Ball(Actor):
             self.dy *= -1
             self.bottom = paddle.top
 
-background1 = Actor("background2")
-background2 = Actor("background2")
 
 class Paddle(Actor):
     def __init__(self):
@@ -93,20 +93,6 @@ class Paddle(Actor):
             self.x += self.speed
             if self.right >= WIDTH:
                 self.right = WIDTH
-
-
-ball = Ball()
-paddle = Paddle()
-
-
-colors = ("red", "grey", "purple", "blue", "green")
-bricks = []
-for row, color in enumerate(colors):
-    for col in range(10):
-        brick = Brick(color, lives=5-row)
-        brick.left = col * brick.width
-        brick.top = row * brick.height + brick.height  # 32
-        bricks.append(brick)
 
 
 def update():
@@ -133,9 +119,6 @@ def update():
         brick.update()
 
 
-background2.left = background1.right
-
-
 def draw():
     # screen.blit('background', (0, 0))
     background1.draw()
@@ -158,4 +141,24 @@ def draw():
     # print score
     screen.draw.text(f"Score: {ball.score:06}", topright=(WIDTH - 10, 10))
 
+
+def init_game():
+    colors = ("red", "grey", "purple", "blue", "green")
+    for row, color in enumerate(colors):
+        for col in range(10):
+            brick = Brick(color, lives=5 - row)
+            brick.left = col * brick.width
+            brick.top = row * brick.height + brick.height  # 32
+            bricks.append(brick)
+
+    background2.left = background1.right
+
+
+background1 = Actor("background2")
+background2 = Actor("background2")
+ball = Ball()
+paddle = Paddle()
+bricks = []
+
+init_game()
 pgzrun.go()
