@@ -91,18 +91,23 @@ class Paddle(Actor):
         self.bottom = HEIGHT
         self.x = WIDTH / 2
         self.speed = 7
+        self.dx = 0
 
     def update(self):
-        # left arrow pressed
         if keyboard.left == True:
-            self.x = self.x - self.speed
-            if self.left <= 0:
-                self.left = 0
+            self.dx = -1
+        elif keyboard.right == True:
+            self.dx = 1
+        else:
+            self.dx = 0
 
-        if keyboard.right == True:
-            self.x += self.speed
-            if self.right >= WIDTH:
-                self.right = WIDTH
+        self.x = self.x + self.dx * self.speed
+
+        if self.left <= 0:
+            self.left = 0
+
+        if self.right >= WIDTH:
+            self.right = WIDTH
 
 
 def update():
@@ -110,10 +115,9 @@ def update():
     paddle = get_actor_by_type(actors, Paddle)
     ball = get_actor_by_type(actors, Ball)
 
-    paddle.x = ball.x
+    # paddle.x = ball.x
 
-    background.x += ball.dx
-    # background2.x += ball.dx
+    background.x += paddle.dx
 
     # ukoncenie hry, ked lopticka preleti cez dolny okraj obrazovky
     if ball.bottom >= HEIGHT:
@@ -132,15 +136,6 @@ def update():
 
 def draw():
     background.draw()
-    # background2.draw()
-
-    # background1.x -= 1
-    # background2.x -= 1
-
-    # if background1.right == 0:
-    #     background1.left = background2.right
-    # elif background2.right == 0:
-    #     background2.left = background1.right
 
     # draw all actors
     for actor in actors:
@@ -152,7 +147,8 @@ def draw():
 
 
 def init_game():
-    actors.append(Paddle())
+    paddle = Paddle()
+    actors.append(paddle)
     actors.append(Ball())
 
     level = pytmx.TiledMap('maps/level1.tmx')
@@ -168,19 +164,12 @@ def init_game():
     image = Path(bglayer.image[0])
 
     global background
-    # global background2
     background = Actor(image.stem)
-    background.x = background.width / 2
-    # background2 = Actor(image.stem)
-    # background2.left = background1.right
-
-
-# background2 = None
+    background.x = paddle.x
 
 background = None
 actors = []
 
 init_game()
 pgzrun.go()
-
 
