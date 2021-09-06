@@ -7,10 +7,7 @@ from pgzero.actor import Actor
 from pgzero.keyboard import keyboard
 import pgzrun
 import pytmx
-
-WIDTH = 640
-HEIGHT = 480
-TITLE = "arkanoid.py"
+from settings import WIDTH, HEIGHT, TITLE
 
 
 # logger = logging.getLogger('arkanoid')
@@ -167,9 +164,9 @@ def init_game():
     background = Actor(image.stem)
     background.x = paddle.x
 
+
 background = None
 actors = []
 
 init_game()
 pgzrun.go()
-

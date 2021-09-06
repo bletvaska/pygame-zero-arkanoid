@@ -1,0 +1,2 @@
+actors = []
+background = None
