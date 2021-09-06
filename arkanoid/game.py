@@ -32,7 +32,7 @@ class Brick(Actor):
             ball.score += 10
             self.lives -= 1
             if self.lives <= 0:
-                bricks.remove(self)
+                actors.remove(self)
 
 
 class Ball(Actor):
@@ -110,12 +110,12 @@ def update():
         quit()
 
     # check if there are any bricks left
-    if len(bricks) == 0:
+    if len(actors) == 0:
         print("Well done")
         quit()
 
     # update all the bricks
-    for brick in bricks:
+    for brick in actors:
         brick.update()
 
 
@@ -135,7 +135,7 @@ def draw():
     ball.draw()
     paddle.draw()
 
-    for brick in bricks:
+    for brick in actors:
         brick.draw()
 
     # print score
@@ -143,22 +143,22 @@ def draw():
 
 
 def init_game():
-    colors = ("red", "grey", "purple", "blue", "green")
-    for row, color in enumerate(colors):
-        for col in range(10):
-            brick = Brick(color, lives=5 - row)
-            brick.left = col * brick.width
-            brick.top = row * brick.height + brick.height  # 32
-            bricks.append(brick)
+    level = pytmx.TiledMap('maps/level1.tmx')
+    layer = level.get_layer_by_name('actors')
+
+    for actor in layer:
+        brick = Brick(actor.properties['color'], actor.properties['lives'])
+        brick.topleft = (actor.x, actor.y)
+        actors.append(brick)
 
     background2.left = background1.right
 
+actors = []
 
 background1 = Actor("background2")
 background2 = Actor("background2")
 ball = Ball()
 paddle = Paddle()
-bricks = []
 
 init_game()
 pgzrun.go()
