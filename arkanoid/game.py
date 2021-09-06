@@ -1,6 +1,7 @@
 #!/usr/bin/env pgzrun
 from random import choice
 import logging
+from pathlib import Path
 
 from pgzero.actor import Actor
 from pgzero.keyboard import keyboard
@@ -106,10 +107,13 @@ class Paddle(Actor):
 
 def update():
     # god mode
-    # paddle.x = ball.x
+    paddle = get_actor_by_type(actors, Paddle)
     ball = get_actor_by_type(actors, Ball)
-    background1.x += ball.dx
-    background2.x += ball.dx
+
+    paddle.x = ball.x
+
+    background.x += ball.dx
+    # background2.x += ball.dx
 
     # ukoncenie hry, ked lopticka preleti cez dolny okraj obrazovky
     if ball.bottom >= HEIGHT:
@@ -117,7 +121,7 @@ def update():
         quit()
 
     # check if there are any bricks left
-    if len(actors) == 0:
+    if get_actor_by_type(actors, Brick) is None:
         print("Well done")
         quit()
 
@@ -127,21 +131,18 @@ def update():
 
 
 def draw():
-    # screen.blit('background', (0, 0))
-    background1.draw()
-    background2.draw()
+    background.draw()
+    # background2.draw()
 
     # background1.x -= 1
     # background2.x -= 1
 
-    if background1.right == 0:
-        background1.left = background2.right
-    elif background2.right == 0:
-        background2.left = background1.right
+    # if background1.right == 0:
+    #     background1.left = background2.right
+    # elif background2.right == 0:
+    #     background2.left = background1.right
 
-    # ball.draw()
-    # paddle.draw()
-
+    # draw all actors
     for actor in actors:
         actor.draw()
 
@@ -162,12 +163,21 @@ def init_game():
         brick.topleft = (actor.x, actor.y)
         actors.append(brick)
 
-    background2.left = background1.right
+    # extract background image
+    bglayer = level.get_layer_by_name('background')
+    image = Path(bglayer.image[0])
+
+    global background
+    # global background2
+    background = Actor(image.stem)
+    background.x = background.width / 2
+    # background2 = Actor(image.stem)
+    # background2.left = background1.right
 
 
-background1 = Actor("background2")
-background2 = Actor("background2")
+# background2 = None
 
+background = None
 actors = []
 
 init_game()
