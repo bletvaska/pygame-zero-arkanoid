@@ -14,6 +14,13 @@ TITLE = "arkanoid.py"
 
 # logger = logging.getLogger('arkanoid')
 
+def get_actor_by_type(actors: list, cls: type):
+    for actor in actors:
+        if type(actor) == cls:
+            return actor
+
+    return None
+
 
 class Brick(Actor):
     def __init__(self, color="purple", lives=1):
@@ -69,6 +76,7 @@ class Ball(Actor):
             self.bottom = HEIGHT
 
         # collision detection with paddle
+        paddle = get_actor_by_type(actors, Paddle)
         if self.colliderect(paddle):
             print("collision detected")
             self.dy *= -1
@@ -96,11 +104,8 @@ class Paddle(Actor):
 
 
 def update():
-    ball.update()
-    paddle.update()
-
     # god mode
-    paddle.x = ball.x
+    # paddle.x = ball.x
     background1.x += ball.dx
     background2.x += ball.dx
 
@@ -115,8 +120,8 @@ def update():
         quit()
 
     # update all the bricks
-    for brick in actors:
-        brick.update()
+    for actor in actors:
+        actor.update()
 
 
 def draw():
@@ -132,17 +137,20 @@ def draw():
     elif background2.right == 0:
         background2.left = background1.right
 
-    ball.draw()
-    paddle.draw()
+    # ball.draw()
+    # paddle.draw()
 
-    for brick in actors:
-        brick.draw()
+    for actor in actors:
+        actor.draw()
 
     # print score
     screen.draw.text(f"Score: {ball.score:06}", topright=(WIDTH - 10, 10))
 
 
 def init_game():
+    paddle = Paddle()
+    actors.append(paddle)
+
     level = pytmx.TiledMap('maps/level1.tmx')
     layer = level.get_layer_by_name('actors')
 
@@ -153,12 +161,14 @@ def init_game():
 
     background2.left = background1.right
 
-actors = []
 
 background1 = Actor("background2")
 background2 = Actor("background2")
+
 ball = Ball()
-paddle = Paddle()
+actors = [ball]
 
 init_game()
 pgzrun.go()
+
+
