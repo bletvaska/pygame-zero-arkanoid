@@ -198,14 +198,14 @@
   </object>
   <object id="37" name="paddle" type="paddle" x="268" y="456" width="104" height="24">
    <properties>
-    <property name="speed" value="7"/>
+    <property name="speed" type="int" value="7"/>
    </properties>
   </object>
   <object id="38" name="ball" type="ball" x="309" y="434" width="22" height="22">
    <properties>
-    <property name="dx" value="1"/>
-    <property name="dy" value="-1"/>
-    <property name="speed" value="3"/>
+    <property name="dx" type="int" value="1"/>
+    <property name="dy" type="int" value="-1"/>
+    <property name="speed" type="int" value="3"/>
    </properties>
   </object>
  </objectgroup>
