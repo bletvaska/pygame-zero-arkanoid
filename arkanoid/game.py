@@ -7,7 +7,9 @@ from pgzero.actor import Actor
 from pgzero.keyboard import keyboard
 import pgzrun
 import pytmx
+
 from settings import WIDTH, HEIGHT, TITLE
+from context import actors, background
 
 
 # logger = logging.getLogger('arkanoid')
@@ -163,10 +165,8 @@ def init_game():
     global background
     background = Actor(image.stem)
     background.x = paddle.x
+    print(paddle.left, paddle.top)
 
-
-background = None
-actors = []
 
 init_game()
 pgzrun.go()

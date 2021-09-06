@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="20" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="37">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="20" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="39">
  <imagelayer id="3" name="background">
   <image source="../images/background2.png" width="1386" height="490"/>
  </imagelayer>
@@ -194,6 +194,18 @@
    <properties>
     <property name="color" value="blue"/>
     <property name="lives" type="int" value="1"/>
+   </properties>
+  </object>
+  <object id="37" name="paddle" type="paddle" x="268" y="456" width="104" height="24">
+   <properties>
+    <property name="speed" value="7"/>
+   </properties>
+  </object>
+  <object id="38" name="ball" type="ball" x="309" y="434" width="22" height="22">
+   <properties>
+    <property name="dx" value="1"/>
+    <property name="dy" value="-1"/>
+    <property name="speed" value="3"/>
    </properties>
   </object>
  </objectgroup>
