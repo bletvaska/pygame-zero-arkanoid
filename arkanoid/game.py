@@ -34,6 +34,7 @@ class Brick(Actor):
 
     def update(self):
         # collision detection brick with ball
+        ball = get_actor_by_type(actors, Ball)
         if self.colliderect(ball):
             ball.dy *= -1
             ball.score += 10
@@ -106,6 +107,7 @@ class Paddle(Actor):
 def update():
     # god mode
     # paddle.x = ball.x
+    ball = get_actor_by_type(actors, Ball)
     background1.x += ball.dx
     background2.x += ball.dx
 
@@ -144,12 +146,13 @@ def draw():
         actor.draw()
 
     # print score
+    ball = get_actor_by_type(actors, Ball)
     screen.draw.text(f"Score: {ball.score:06}", topright=(WIDTH - 10, 10))
 
 
 def init_game():
-    paddle = Paddle()
-    actors.append(paddle)
+    actors.append(Paddle())
+    actors.append(Ball())
 
     level = pytmx.TiledMap('maps/level1.tmx')
     layer = level.get_layer_by_name('actors')
@@ -165,8 +168,7 @@ def init_game():
 background1 = Actor("background2")
 background2 = Actor("background2")
 
-ball = Ball()
-actors = [ball]
+actors = []
 
 init_game()
 pgzrun.go()
